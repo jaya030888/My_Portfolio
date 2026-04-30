@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  background: #f0f0f0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@font-face {
+  font-family: "Saans";
+  src: url("./fonts/Saans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+.inp {
+  background-color: white;
+  width: 100%;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 16px;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 12px 36px rgba(26, 26, 26, 0.05);
+}
+
+.inp:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 26, 26, 0.18), 0 12px 36px rgba(26, 26, 26, 0.05);
+}
+
+.inp::placeholder {
+  color: rgba(26, 26, 26, 0.45);
+}
+
+body {
+  font-family: "Saans", var(--font-geist-sans), Arial, sans-serif;
+}
