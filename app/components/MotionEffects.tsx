@@ -59,8 +59,8 @@ export default function MotionEffects() {
         )
         .to(
           "[data-pop]",
-          { opacity: 1, scale: 1, y: 0, duration: 0.7, stagger: 0.08 },
-          "-=0.35"
+          { opacity: 1, scale: 1, y: 0, duration: 0.3, stagger: 0.05 },
+          "-=0.25"
         );
 
       gsap.fromTo(

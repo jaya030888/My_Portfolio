@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import Clients from "./Clients";
 
 export default function Hero() {
   return (

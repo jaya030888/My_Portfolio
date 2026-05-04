@@ -4,6 +4,7 @@ import Work from "./components/Work";
 import Contact from "./components/Contact";
 import MotionEffects from "./components/MotionEffects";
 import About from "./components/About";
+import Testimonial from "./components/Testimonial";
 
 export default function Home() {
   return (
@@ -32,6 +33,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Testimonial />
 
       <Contact />
     </main>
