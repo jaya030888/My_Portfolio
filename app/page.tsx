@@ -35,8 +35,9 @@ export default function Home() {
       </section>
 
       <Testimonial />
-
       <Contact />
+
     </main>
+
   );
 }

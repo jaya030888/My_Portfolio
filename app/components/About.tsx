@@ -1,4 +1,4 @@
-import Clients from "./Clients";
+
 
 export default function About() {
   return (

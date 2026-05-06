@@ -11,32 +11,32 @@ import { useRef, useEffect, useState } from "react";
 const testimonials = [
   {
     name: "Danny",
-    text: "I’ve worked with Riya for a couple months now and it’s been the best work I’ve seen from a editor is a long time, she’s helped me with all of my content which lead to thousands of views which then convert to money being made in my business, 100% one for her best woman in the game when it comes to editing, would highly recommend working with her",
+    text: "hello",
     img: "./images/Danny.jpeg",
   },
   {
     name: "Deniz",
-    text: "I’ve worked with Riya for a couple months now and it’s been the best work I’ve seen from a editor is a long time, she’s helped me with all of my content which lead to thousands of views which then convert to money being made in my business, 100% one for her best woman in the game when it comes to editing, would highly recommend working with her",
+    text: "Smooth edit and nice timing. Adding some sound effects or changing music slightly can make it feel more lively.",
     img: "./images/Deniz.jpeg",
   },
   {
     name: "Efossa",
-    text: "I’ve worked with Riya for a couple months now and it’s been the best work I’ve seen from a editor is a long time, she’s helped me with all of my content which lead to thousands of views which then convert to money being made in my business, 100% one for her best woman in the game when it comes to editing, would highly recommend working with her",
+    text: "I’ve been working with Riya for a few months, and her editing is honestly the best I’ve seen in a long time. She’s helped grow my content to millions of views that convert into real business revenue. Highly recommend working with her.",
     img: "./images/Efossa.jpeg",
   },
   {
     name: "Emmanuel",
-    text: "I’ve worked with Riya for a couple months now and it’s been the best work I’ve seen from a editor is a long time, she’s helped me with all of my content which lead to thousands of views which then convert to money being made in my business, 100% one for her best woman in the game when it comes to editing, would highly recommend working with her",
+    text: "You’ve done a good job with transitions and clips. Slightly faster pacing and some text on screen would make it even better.",
     img: "./images/Emmanuel.jpeg",
   },
   {
     name: "Nick",
-    text: "I’ve worked with Riya for a couple months now and it’s been the best work I’ve seen from a editor is a long time, she’s helped me with all of my content which lead to thousands of views which then convert to money being made in my business, 100% one for her best woman in the game when it comes to editing, would highly recommend working with her",
+    text: "Overall it’s a solid edit. Just focus a bit more on the starting hook and keeping the energy high throughout the video.",
     img: "./images/Nick.jpeg",
   },
   {
     name: "Brenden Stein",
-    text: "I’ve worked with Riya for a couple months now and it’s been the best work I’ve seen from a editor is a long time, she’s helped me with all of my content which lead to thousands of views which then convert to money being made in my business, 100% one for her best woman in the game when it comes to editing, would highly recommend working with her",
+    text: "hello",
     img: "./images/Brenden_stein.jpeg",
   }
 ];
@@ -112,7 +112,7 @@ function Card({ item, motionX, index, center }: any) {
   return (
     <motion.div
       style={{ scale, opacity }}
-      className="min-w-[260px] bg-white rounded-2xl shadow-xl p-6 text-center"
+      className="min-w-[260px] bg-[#ffffff] shadow-[0_10px_20px_rgba(26,26,26,0.3)] rounded-2xl shadow-xl p-6 text-center"
     >
       <img
         src={item.img}
@@ -121,7 +121,7 @@ function Card({ item, motionX, index, center }: any) {
 
       <h3 className="font-semibold">{item.name}</h3>
 
-      <p className="text-sm text-gray-500 mt-2">
+      <p className="text-sm text-[#302929] mt-2">
         {item.text}
       </p>
     </motion.div>

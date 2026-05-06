@@ -1,5 +1,35 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Contact() {
+
+const [form, setForm] = useState({
+  Name: "",
+  Email: "",
+  Budget: "",
+  Description: "",
+});
+
+const handleChange = (e: any) => {
+  setForm({ ...form, [e.target.name]: e.target.value });
+};
+
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+
+  await fetch("/api/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(form),
+  });
+};
+
+
   return (
+
     <section id="contact" className="bg-[#f0f0f0] px-5 pb-12 pt-16 sm:px-10 lg:px-16">
       <div data-reveal className="mx-auto max-w-[760px] text-center">
         <h2 className="text-[54px] font-medium leading-[0.9] text-[#1a1a1a] sm:text-[80px]">
@@ -12,10 +42,11 @@ export default function Contact() {
         </p>
       </div>
 
-      <form data-contact-form className="mx-auto mt-10 flex max-w-[700px] flex-col gap-3">
-        <input data-form-field type="text" name="Name" placeholder="Your Name" required className="inp" />
-        <input data-form-field type="email" name="Email" placeholder="Email Address" required className="inp" />
-        <select data-form-field name="Budget" required className="inp" defaultValue="">
+      <form onSubmit={handleSubmit} data-contact-form className="mx-auto mt-10 flex max-w-[700px] flex-col gap-3">
+
+        <input onChange={handleChange} data-form-field type="text" name="Name" placeholder="Your Name" required className="inp" />
+        <input onChange={handleChange} data-form-field type="email" name="Email" placeholder="Email Address" required className="inp" />
+        <select onChange={handleChange} data-form-field name="Budget" required className="inp" defaultValue="">
           <option value="" disabled>
             What&apos;s your Budget?
           </option>
@@ -26,6 +57,7 @@ export default function Contact() {
           <option value="$5k+">$5k+</option>
         </select>
         <textarea
+          onChange={handleChange}
           data-form-field
           name="Description"
           placeholder="Describe Your Project"
@@ -34,13 +66,13 @@ export default function Contact() {
           className="inp resize-none"
         />
 
-        <button
-          data-form-field
-          type="submit"
-          className="mt-1 rounded-[16px] bg-[#dedede] px-6 py-5 text-[18px] font-medium text-[#8f8f8f] transition hover:bg-[#1a1a1a] hover:text-white"
-        >
-          Send Inquiry
-        </button>
+          <a
+            href="mailto:jaya.quad25@medhaviskillsuniversity.edu.in?subject=Project Inquiry&body=Hello, I want to start a project"
+            className="mt-1 rounded-[16px] bg-[#dedede] px-6 py-5 text-[18px] font-medium text-[#8f8f8f] hover:bg-[#1a1a1a] hover:text-white block text-center"
+          >
+            Send Inquiry
+          </a>
+ 
       </form>
 
 

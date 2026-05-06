@@ -1,13 +1,21 @@
+'use client'
+import { useState } from "react";
+
 const projects = [
-  { title: "Replit", subtitle: "Product Video", src: "/videos/first.mp4" },
-  { title: "LanaAI", subtitle: "Explainer Video", src: "/videos/second.mp4" },
-  { title: "David Guetta", subtitle: "Launch Video", src: "/videos/third.mp4" },
-  { title: "Sanctum", subtitle: "Product Video", src: "/videos/fourth.mp4" },
-  { title: "David Guetta", subtitle: "Launch Video", src: "/videos/fifth.mp4" },
-  { title: "Sanctum", subtitle: "Product Video", src: "/videos/sixth.mp4" }
+  { title: "Danny", subtitle: "Educational Video", src: "/videos/first.mp4" },
+  { title: "Jack", subtitle: "Trial Video", src: "/videos/second.mp4" },
+  { title: "Deniz", subtitle: "Trial Video", src: "/videos/third.mp4" },
+  { title: "AVA", subtitle: "Trial Video", src: "/videos/fourth.mp4" },
+  { title: "Deniz", subtitle: "Content Video", src: "/videos/fifth.mp4" },
+  { title: "Danny", subtitle: "Long Form Video", src: "/videos/sixth.mp4" }
 ];
 
 export default function Work() {
+
+  const [open, setOpen] = useState(false);
+  const [vdo, setVdo] = useState('')
+
+
   return (
     <section id="work" className="flex h-screen bg-[#f0f0f0] px-5 sm:px-10 lg:px-16">
       <div className="mx-auto w-full max-w-[1120px]">
@@ -19,8 +27,14 @@ export default function Work() {
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         {projects.map((p, i) => (
-            <article key={p.title} data-project-card className="group">
-              <div className="relative aspect-video overflow-hidden rounded-[22px] bg-[#d9d9d9]">
+            <article key={p.title}
+             data-project-card
+             onClick={() => {
+                              setOpen(true);
+                              setVdo(p.src);
+                             }}
+              className="group">
+              <div className="relative aspect-video overflow-hidden rounded-[22px] bg-[#d9d9d9] ">
               <video
                 autoPlay
                 loop
@@ -47,6 +61,31 @@ export default function Work() {
         ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {open && (
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+  
+        {/* Background */}
+        <div
+          onClick={() => setOpen(false)}
+          className="absolute inset-0 bg-black/70 backdrop-blur-md"
+        />
+  
+        {/* Video */}
+        <div className="relative z-10 w-[80%] max-w-5xl rounded-3xl overflow-hidden bg-black shadow-2xl">
+  
+          <video
+            controls
+            autoPlay
+            className="w-full max-h-[90vh] object-contain"
+          >
+            <source src={vdo} type="video/mp4" />
+          </video>
+  
+        </div>
+      </div>
+      )}
       
     </section>
   );
