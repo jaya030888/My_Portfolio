@@ -11,7 +11,7 @@ import { useRef, useEffect, useState } from "react";
 const testimonials = [
   {
     name: "Danny",
-    text: "hello",
+    text: "When I started working with Riya I had a picture of what I wanted my content to look like and she was able to take from what I had posted and transform that into my vision. She was prompt to send content back and quick to fix changes that I had required can’t recommend Riya enough affordable and reliable with premium edits.",
     img: "./images/Danny.jpeg",
   },
   {
@@ -43,9 +43,20 @@ const testimonials = [
 
 const data = [...testimonials, ...testimonials];
 
+
 export default function Testimonial() {
+
+  useEffect(() => {
+  if (trackRef.current) {
+    setHalfWidth(trackRef.current.scrollWidth / 2);
+  }
+}, []);
+
+  const [halfWidth, setHalfWidth] = useState(0);
+
   const x = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [center, setCenter] = useState(0);
 
   useEffect(() => {
@@ -57,9 +68,9 @@ export default function Testimonial() {
   useAnimationFrame((t, delta) => {
     x.set(x.get() - delta * 0.06);
 
-    if (x.get() <= -1200) {
-      x.set(0);
-    }
+    if (x.get() <= -halfWidth) {
+  x.set(0);
+}
   });
 
   return (
@@ -72,7 +83,7 @@ export default function Testimonial() {
           What my Clients say!
         </h2>
 
-        <motion.div style={{ x }} className="flex gap-6">
+        <motion.div ref={trackRef} style={{ x }} className="flex gap-6">
           {data.map((item, i) => (
             <Card
               key={i}

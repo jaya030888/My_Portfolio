@@ -64,8 +64,7 @@ export default function Hero() {
       {/* Button */}
       <a
         data-pop
-        href="https://calendly.com/contact-leonmotion/30min?month=2026-03"
-        target="_blank"
+        href="#contact"
         rel="noopener noreferrer"
         className="flex items-center justify-between bg-black/90 rounded-[15px] px-2 py-2 w-fit transition hover:-translate-y-0.5"
       >
