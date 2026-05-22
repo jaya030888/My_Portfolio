@@ -1,10 +1,20 @@
+"use client";
 
+import { useState } from "react";
 
 export default function About() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <section data-video-pin className="flex h-screen justify-center bg-[#f0f0f0] px-5 pt-12 sm:px-10 lg:px-16">
-      <div className="mx-auto w-full max-h-[400px] max-w-[800px]">
-        <div data-main-video className="relative aspect-[16/9] overflow-hidden rounded-[22px] bg-[#1a1a1a] shadow-[0_30px_80px_rgba(26,26,26,0.16)]">
+    <section data-video-pin className="flex min-h-screen items-center justify-center bg-[#f0f0f0] px-5 py-16 sm:px-10 lg:px-16">
+      <div className="mx-auto w-full max-w-[800px]">
+        <button
+          type="button"
+          data-main-video
+          onClick={() => setOpen(true)}
+          className="relative block aspect-[16/9] w-full cursor-pointer overflow-hidden rounded-[18px] bg-[#1a1a1a] p-0 text-left shadow-[0_30px_80px_rgba(26,26,26,0.16)] sm:rounded-[22px]"
+          aria-label="Open intro video"
+        >
         <video
           autoPlay
           loop
@@ -15,12 +25,32 @@ export default function About() {
           <source src="/videos/video1.mp4" type="video/mp4" />
         </video>
 
-          <div className="absolute bottom-4 right-4 rounded-[16px] bg-white/92 px-4 py-3 text-right shadow-[0_16px_50px_rgba(0,0,0,0.16)] backdrop-blur sm:bottom-6 sm:right-6">
+          <div className="absolute bottom-3 right-3 rounded-[14px] bg-white/92 px-3 py-2 text-right shadow-[0_16px_50px_rgba(0,0,0,0.16)] backdrop-blur sm:bottom-6 sm:right-6 sm:px-4 sm:py-3">
             <p className="text-[13px] font-medium text-[#777]">@</p>
           </div>
-        </div>
+        </button>
       </div>
 
+      {open && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8">
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            aria-label="Close intro video"
+          />
+
+          <div className="relative z-10 flex w-full max-w-5xl items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl sm:rounded-3xl">
+            <video
+              controls
+              autoPlay
+              className="max-h-[86vh] w-full object-contain"
+            >
+              <source src="/videos/video1.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

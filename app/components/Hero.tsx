@@ -5,10 +5,10 @@ import { ArrowRight } from "lucide-react";
 export default function Hero() {
   return (
 
-    <div className="max-w-[1000px]">
+    <div className="w-full max-w-[1000px]">
 
     
-    <section className="bg-[#f0f0f0] w-full min-h-screen text-black pl-50 pt-10">
+    <section id="top" className="flex min-h-screen w-full flex-col justify-center bg-[#f0f0f0] px-5 pb-12 pt-28 text-black sm:px-10 md:block md:pl-28 md:pt-28 lg:pl-50">
 
       {/* Heading */}
       <h1 className="space-y-0.5">
@@ -16,7 +16,7 @@ export default function Hero() {
         <span className="block overflow-hidden">
           <span
             data-hero-line
-            className="block text-[76px] font-medium text-black/40 leading-[76px]"
+            className="block text-[clamp(44px,13vw,76px)] font-medium leading-[0.98] text-black/40"
           >
             You built
           </span>
@@ -25,7 +25,7 @@ export default function Hero() {
         <span className="block overflow-hidden">
           <span
             data-hero-line
-            className="block text-[76px] font-medium text-black/40 leading-[76px]"
+            className="block text-[clamp(44px,13vw,76px)] font-medium leading-[0.98] text-black/40"
           >
             something good.
           </span>
@@ -34,16 +34,16 @@ export default function Hero() {
         <span className="block overflow-hidden">
           <span
             data-hero-line
-            className="block text-[76px] font-medium text-black leading-[76px]"
+            className="block text-[clamp(44px,13vw,76px)] font-medium leading-[0.98] text-black"
           >
-            Don't let a weak
+            Don&apos;t let a weak
           </span>
         </span>
 
         <span className="block overflow-hidden">
           <span
             data-hero-line
-            className="block text-[76px] font-medium text-black leading-[76px]"
+            className="block text-[clamp(44px,13vw,76px)] font-medium leading-[0.98] text-black"
           >
             video kill it.
           </span>
@@ -54,10 +54,10 @@ export default function Hero() {
       {/* Paragraph */}
       <div
         data-hero-line
-        className="text-[20px] font-medium text-black/60 leading-[30px] mt-6 mb-8"
+        className="mb-8 mt-6 max-w-[560px] text-[18px] font-medium leading-[1.5] text-black/60 sm:text-[20px]"
       >
         Animated videos that make people understand your
-        <br />
+        <br className="hidden sm:block" />
         product in 5 seconds and actually want to buy it.
       </div>
 
@@ -66,13 +66,13 @@ export default function Hero() {
         data-pop
         href="#contact"
         rel="noopener noreferrer"
-        className="flex items-center justify-between bg-black/90 rounded-[15px] px-2 py-2 w-fit transition hover:-translate-y-0.5"
+        className="flex w-fit items-center justify-between rounded-[15px] bg-black/90 px-2 py-2 transition hover:-translate-y-0.5"
       >
-        <span className="text-[20px] leading-[24px] font-medium text-white pl-4 pr-6">
+        <span className="pl-4 pr-6 text-[18px] font-medium leading-[24px] text-white sm:text-[20px]">
           Get Started
         </span>
 
-        <div className="flex items-center justify-center bg-white rounded-[12px] w-10 h-10">
+        <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-white">
           <ArrowRight className="w-4 h-4 text-black" />
         </div>
       </a>

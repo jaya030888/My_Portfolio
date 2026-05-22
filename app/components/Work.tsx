@@ -17,24 +17,24 @@ export default function Work() {
 
 
   return (
-    <section id="work" className="flex h-screen bg-[#f0f0f0] px-5 sm:px-10 lg:px-16">
+    <section id="work" className="flex min-h-screen bg-[#f0f0f0] px-5 py-16 sm:px-10 lg:px-16">
       <div className="mx-auto w-full max-w-[1120px]">
         <div data-reveal className="mb-7 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <h2 className="max-w-[640px] text-[38px] font-medium leading-[0.95] text-[#A8A8A8] sm:text-[54px]">
+          <h2 className="max-w-[640px] text-[36px] font-medium leading-[0.98] text-[#A8A8A8] sm:text-[54px]">
             Selected Projects
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p, i) => (
-            <article key={p.title}
+            <article key={`${p.title}-${p.src}`}
              data-project-card
              onClick={() => {
                               setOpen(true);
                               setVdo(p.src);
                              }}
               className="group">
-              <div className="relative aspect-video overflow-hidden rounded-[22px] bg-[#d9d9d9] ">
+              <div className="relative aspect-video overflow-hidden rounded-[18px] bg-[#d9d9d9] sm:rounded-[22px]">
               <video
                 autoPlay
                 loop
@@ -64,21 +64,23 @@ export default function Work() {
 
       {/* Modal */}
       {open && (
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8">
   
         {/* Background */}
-        <div
+        <button
+          type="button"
           onClick={() => setOpen(false)}
           className="absolute inset-0 bg-black/70 backdrop-blur-md"
+          aria-label="Close project video"
         />
   
         {/* Video */}
-        <div className="relative z-10 w-[80%] max-w-5xl rounded-3xl overflow-hidden bg-black shadow-2xl">
+        <div className="relative z-10 flex w-full max-w-5xl items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl sm:rounded-3xl">
   
           <video
             controls
             autoPlay
-            className="w-full max-h-[90vh] object-contain"
+            className="max-h-[86vh] w-full object-contain"
           >
             <source src={vdo} type="video/mp4" />
           </video>

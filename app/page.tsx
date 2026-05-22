@@ -14,21 +14,21 @@ export default function Home() {
 
       <section
         data-horizontal
-        className="relative overflow-hidden py-20 bg-[#f0f0f0]"
+        className="relative overflow-hidden bg-[#f0f0f0] py-20 max-md:overflow-visible max-md:py-0"
       >
         <div
           data-horizontal-track
-          className="flex w-max gap-20 items-start"
+          className="flex w-max items-start gap-20 max-md:w-full max-md:flex-col max-md:gap-0"
         >
-          <div className="shrink-0 px-10">
+          <div className="shrink-0 px-10 max-md:w-full max-md:px-0">
             <Hero />
           </div>
 
-          <div className="shrink-0 px-10">
+          <div className="shrink-0 px-10 max-md:w-full max-md:px-0">
             <About />
           </div>
 
-          <div className="shrink-0 px-10">
+          <div className="shrink-0 px-10 max-md:w-full max-md:px-0">
             <Work />
           </div>
         </div>

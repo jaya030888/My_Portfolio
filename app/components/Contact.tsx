@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function Contact() {
 
@@ -11,11 +11,11 @@ const [form, setForm] = useState({
   Description: "",
 });
 
-const handleChange = (e: any) => {
+const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
   setForm({ ...form, [e.target.name]: e.target.value });
 };
 
-const handleSubmit = async (e: any) => {
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
   await fetch("/api/contact", {
@@ -30,14 +30,14 @@ const handleSubmit = async (e: any) => {
 
   return (
 
-    <section id="contact" className="bg-[#f0f0f0] px-5 pb-12 pt-16 sm:px-10 lg:px-16">
+    <section id="contact" className="bg-[#f0f0f0] px-5 pb-12 pt-14 sm:px-10 sm:pt-16 lg:px-16">
       <div data-reveal className="mx-auto max-w-[760px] text-center">
-        <h2 className="text-[54px] font-medium leading-[0.9] text-[#1a1a1a] sm:text-[80px]">
+        <h2 className="text-[46px] font-medium leading-[0.92] text-[#1a1a1a] sm:text-[80px]">
           Let&apos;s start
           <br />
           <span className="text-[#1a1a1a]/40">your</span> project
         </h2>
-        <p className="mx-auto mt-7 max-w-[430px] text-[19px] font-medium leading-[1.45] text-[#666]">
+        <p className="mx-auto mt-6 max-w-[430px] text-[17px] font-medium leading-[1.45] text-[#666] sm:mt-7 sm:text-[19px]">
           Fill out the form to get started, or book a call.
         </p>
       </div>
@@ -68,7 +68,7 @@ const handleSubmit = async (e: any) => {
 
           <a
             href="mailto:jaya.quad25@medhaviskillsuniversity.edu.in?subject=Project Inquiry&body=Hello, I want to start a project"
-            className="mt-1 rounded-[16px] bg-[#dedede] px-6 py-5 text-[18px] font-medium text-[#8f8f8f] hover:bg-[#1a1a1a] hover:text-white block text-center"
+            className="mt-1 block rounded-[16px] bg-[#dedede] px-6 py-4 text-center text-[17px] font-medium text-[#8f8f8f] hover:bg-[#1a1a1a] hover:text-white sm:py-5 sm:text-[18px]"
           >
             Send Inquiry
           </a>
