@@ -1,12 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 export default function About() {
   const [open, setOpen] = useState(false);
 
+  const modal =
+    open && typeof document !== "undefined"
+      ? createPortal(
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8">
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+              aria-label="Close intro video"
+            />
+
+            <div className="relative z-10 flex w-full max-w-5xl items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl sm:rounded-3xl">
+              <video
+                controls
+                autoPlay
+                className="max-h-[86vh] w-full object-contain"
+              >
+                <source src="/videos/video1.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
+
   return (
-    <section data-video-pin className="flex min-h-screen items-center justify-center bg-[#f0f0f0] px-5 py-16 sm:px-10 lg:px-16">
+    <section data-video-pin className="flex items-center justify-center bg-[#f0f0f0] px-5 py-6 sm:min-h-screen sm:px-10 sm:py-16 lg:px-16">
       <div className="mx-auto w-full max-w-[800px]">
         <button
           type="button"
@@ -31,26 +57,7 @@ export default function About() {
         </button>
       </div>
 
-      {open && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8">
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
-            aria-label="Close intro video"
-          />
-
-          <div className="relative z-10 flex w-full max-w-5xl items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl sm:rounded-3xl">
-            <video
-              controls
-              autoPlay
-              className="max-h-[86vh] w-full object-contain"
-            >
-              <source src="/videos/video1.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-      )}
+      {modal}
     </section>
   );
 }

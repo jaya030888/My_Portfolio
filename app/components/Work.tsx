@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 const projects = [
   { title: "Danny", subtitle: "Educational Video", src: "/videos/first.mp4" },
@@ -14,6 +15,31 @@ export default function Work() {
 
   const [open, setOpen] = useState(false);
   const [vdo, setVdo] = useState('')
+
+  const modal =
+    open && typeof document !== "undefined"
+      ? createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8">
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            aria-label="Close project video"
+          />
+
+          <div className="relative z-10 flex w-full max-w-5xl items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl sm:rounded-3xl">
+            <video
+              controls
+              autoPlay
+              className="max-h-[86vh] w-full object-contain"
+            >
+              <source src={vdo} type="video/mp4" />
+            </video>
+          </div>
+        </div>,
+        document.body
+      )
+      : null;
 
 
   return (
@@ -62,32 +88,7 @@ export default function Work() {
         </div>
       </div>
 
-      {/* Modal */}
-      {open && (
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8">
-  
-        {/* Background */}
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="absolute inset-0 bg-black/70 backdrop-blur-md"
-          aria-label="Close project video"
-        />
-  
-        {/* Video */}
-        <div className="relative z-10 flex w-full max-w-5xl items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl sm:rounded-3xl">
-  
-          <video
-            controls
-            autoPlay
-            className="max-h-[86vh] w-full object-contain"
-          >
-            <source src={vdo} type="video/mp4" />
-          </video>
-  
-        </div>
-      </div>
-      )}
+      {modal}
       
     </section>
   );
