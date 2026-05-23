@@ -10,6 +10,7 @@ const [form, setForm] = useState({
   Budget: "",
   Description: "",
 });
+const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
 const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
   setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,13 +18,27 @@ const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTML
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  setStatus("sending");
 
-  await fetch("/api/contact", {
+  const response = await fetch("/api/contact", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(form),
+  });
+
+  if (!response.ok) {
+    setStatus("error");
+    return;
+  }
+
+  setStatus("sent");
+  setForm({
+    Name: "",
+    Email: "",
+    Budget: "",
+    Description: "",
   });
 };
 
@@ -44,9 +59,9 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
       <form onSubmit={handleSubmit} data-contact-form className="mx-auto mt-10 flex max-w-[700px] flex-col gap-3">
 
-        <input onChange={handleChange} data-form-field type="text" name="Name" placeholder="Your Name" required className="inp" />
-        <input onChange={handleChange} data-form-field type="email" name="Email" placeholder="Email Address" required className="inp" />
-        <select onChange={handleChange} data-form-field name="Budget" required className="inp" defaultValue="">
+        <input value={form.Name} onChange={handleChange} data-form-field type="text" name="Name" placeholder="Your Name" required className="inp" />
+        <input value={form.Email} onChange={handleChange} data-form-field type="email" name="Email" placeholder="Email Address" required className="inp" />
+        <select value={form.Budget} onChange={handleChange} data-form-field name="Budget" required className="inp">
           <option value="" disabled>
             What&apos;s your Budget?
           </option>
@@ -57,6 +72,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           <option value="$5k+">$5k+</option>
         </select>
         <textarea
+          value={form.Description}
           onChange={handleChange}
           data-form-field
           name="Description"
@@ -66,12 +82,25 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           className="inp resize-none"
         />
 
-          <a
-            href="mailto:jaya.quad25@medhaviskillsuniversity.edu.in?subject=Project Inquiry&body=Hello, I want to start a project"
-            className="mt-1 block rounded-[16px] bg-[#dedede] px-6 py-4 text-center text-[17px] font-medium text-[#8f8f8f] hover:bg-[#1a1a1a] hover:text-white sm:py-5 sm:text-[18px]"
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="mt-1 block rounded-[16px] bg-[#dedede] px-6 py-4 text-center text-[17px] font-medium text-[#8f8f8f] transition hover:bg-[#1a1a1a] hover:text-white disabled:cursor-not-allowed disabled:opacity-60 sm:py-5 sm:text-[18px]"
           >
-            Send Inquiry
-          </a>
+            {status === "sending" ? "Sending..." : "Send Inquiry"}
+          </button>
+
+          {status === "sent" && (
+            <p className="text-center text-[15px] font-medium text-[#377f4f]">
+              Inquiry sent successfully.
+            </p>
+          )}
+
+          {status === "error" && (
+            <p className="text-center text-[15px] font-medium text-[#9f3b3b]">
+              Something went wrong. Please try again.
+            </p>
+          )}
  
       </form>
 

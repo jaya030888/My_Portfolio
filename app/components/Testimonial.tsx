@@ -7,7 +7,9 @@ import {
   useAnimationFrame,
   type MotionValue,
 } from "framer-motion";
+import { Play } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 const testimonials = [
   {
@@ -37,21 +39,48 @@ const testimonials = [
   },
   {
     name: "Brenden Stein",
-    text: "You’ve done a good job with transitions and clips.",
+    text: "",
+    vdo: "/videos/testimonial_vdo.mp4",
     img: "/images/Brenden_stein.jpeg",
   }
 ];
 
-const data = [...testimonials, ...testimonials];
+const data = [...testimonials, ...testimonials, ...testimonials];
 
 
 export default function Testimonial() {
   const [halfWidth, setHalfWidth] = useState(0);
   const [cardWidth, setCardWidth] = useState(260);
+  const [selectedVideo, setSelectedVideo] = useState("");
 
   const x = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [center, setCenter] = useState(0);
+
+  const modal =
+    selectedVideo && typeof document !== "undefined"
+      ? createPortal(
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8">
+            <button
+              type="button"
+              onClick={() => setSelectedVideo("")}
+              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+              aria-label="Close testimonial video"
+            />
+
+            <div className="relative z-10 flex w-full max-w-5xl items-center justify-center overflow-hidden rounded-2xl bg-black shadow-2xl sm:rounded-3xl">
+              <video
+                controls
+                autoPlay
+                className="max-h-[86vh] w-full object-contain"
+              >
+                <source src={selectedVideo} type="video/mp4" />
+              </video>
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
 
   useEffect(() => {
     const updateMetrics = () => {
@@ -77,11 +106,9 @@ export default function Testimonial() {
     if (!halfWidth || !center) return;
 
     const startX = center - cardWidth / 2;
-    x.set(x.get() - delta * 0.06);
+    const nextX = x.get() - delta * 0.06;
 
-    if (x.get() <= startX - halfWidth) {
-      x.set(startX);
-    }
+    x.set(nextX <= startX - halfWidth ? nextX + halfWidth : nextX);
   });
 
   return (
@@ -103,10 +130,12 @@ export default function Testimonial() {
               index={i}
               center={center}
               cardWidth={cardWidth}
+              onOpenVideo={setSelectedVideo}
             />
           ))}
         </motion.div>
       </div>
+      {modal}
     </section>
   );
 }
@@ -115,6 +144,7 @@ type TestimonialItem = {
   name: string;
   text: string;
   img: string;
+  vdo?: string;
 };
 
 type CardProps = {
@@ -123,9 +153,10 @@ type CardProps = {
   index: number;
   center: number;
   cardWidth: number;
+  onOpenVideo: (src: string) => void;
 };
 
-function Card({ item, motionX, index, center, cardWidth }: CardProps) {
+function Card({ item, motionX, index, center, cardWidth, onOpenVideo }: CardProps) {
   const gap = 24;
   const totalWidth = cardWidth + gap;
 
@@ -147,19 +178,44 @@ function Card({ item, motionX, index, center, cardWidth }: CardProps) {
   return (
     <motion.div
       style={{ scale, opacity }}
-      className="w-[240px] shrink-0 rounded-2xl bg-[#ffffff] p-5 text-center shadow-xl shadow-[0_10px_20px_rgba(26,26,26,0.3)] sm:w-[260px] sm:p-6"
+      className="w-[240px] shrink-0 rounded-2xl bg-white p-5 text-center shadow-[0_18px_45px_rgba(26,26,26,0.16)] sm:w-[260px] sm:p-6"
     >
-      <img
-        src={item.img}
-        alt={`${item.name} testimonial`}
-        className="mx-auto mb-3 h-14 w-14 rounded-full object-cover"
-      />
+      {item.vdo ? (
+        <button
+          type="button"
+          onClick={() => onOpenVideo(item.vdo!)}
+          className="group relative mb-4 h-[190px] w-full overflow-hidden rounded-[18px] bg-[#151515] shadow-[0_18px_45px_rgba(0,0,0,0.22)] sm:h-[210px]"
+          aria-label={`Play ${item.name} testimonial video`}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          >
+            <source src={item.vdo} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+          <span className="absolute inset-0 m-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white/92 text-[#1a1a1a] shadow-[0_12px_34px_rgba(0,0,0,0.28)] backdrop-blur transition group-hover:scale-105">
+            <Play size={22} fill="currentColor" />
+          </span>
+        </button>
+      ) : (
+        <img
+          src={item.img}
+          alt={`${item.name} testimonial`}
+          className="mx-auto mb-3 h-14 w-14 rounded-full object-cover"
+        />
+      )}
 
       <h3 className="font-semibold">{item.name}</h3>
 
-      <p className="text-sm text-[#302929] mt-2">
-        {item.text}
-      </p>
+      {item.text && (
+        <p className="mt-2 text-sm text-[#302929]">
+          {item.text}
+        </p>
+      )}
     </motion.div>
   );
 }
