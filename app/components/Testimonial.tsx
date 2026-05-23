@@ -37,7 +37,7 @@ const testimonials = [
   },
   {
     name: "Brenden Stein",
-    text: "hello",
+    text: "You’ve done a good job with transitions and clips.",
     img: "/images/Brenden_stein.jpeg",
   }
 ];
