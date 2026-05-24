@@ -12,6 +12,12 @@ import { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const testimonials = [
+    {
+    name: "Brenden Stein",
+    text: "",
+    vdo: "/videos/testimonial_vdo.mp4",
+    img: "/images/Brenden_stein.jpeg",
+  },
   {
     name: "Danny",
     text: "When I started working with Riya I had a picture of what I wanted my content to look like and she was able to take from what I had posted and transform that into my vision. She was prompt to send content back and quick to fix changes that I had required can’t recommend Riya enough affordable and reliable with premium edits.",
@@ -36,12 +42,6 @@ const testimonials = [
     name: "Nick",
     text: "Overall it’s a solid edit. Just focus a bit more on the starting hook and keeping the energy high throughout the video.",
     img: "/images/Nick.jpeg",
-  },
-  {
-    name: "Brenden Stein",
-    text: "",
-    vdo: "/videos/testimonial_vdo.mp4",
-    img: "/images/Brenden_stein.jpeg",
   }
 ];
 
