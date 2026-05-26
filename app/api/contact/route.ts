@@ -1,6 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const recipient = "jayamyname19@gmail.com";
 
 type ContactForm = {
@@ -24,6 +23,18 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+      console.error("RESEND_API_KEY is not configured.");
+      return Response.json(
+        { message: "Unable to send inquiry right now." },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
 
     await resend.emails.send({
       from: "Portfolio Inquiry <onboarding@resend.dev>",
