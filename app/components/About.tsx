@@ -23,7 +23,7 @@ export default function About() {
                 autoPlay
                 className="max-h-[86vh] w-full object-contain"
               >
-                <source src="/videos/video1.mp4" type="video/mp4" />
+                <source src="/videos/first.mp4" type="video/mp4" />
               </video>
             </div>
           </div>,
