@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const recipient = "ria7j6@gmail.com";
+const recipient = "jayamyname19@gmail.com";
 
 type ContactForm = {
   Name?: string;
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 
     const resend = new Resend(apiKey);
 
-    const { error } = await resend.emails.send({
+    const sendPromise = resend.emails.send({
       from: "Portfolio Inquiry <onboarding@resend.dev>",
       to: recipient,
       replyTo: email,
@@ -55,6 +55,12 @@ export async function POST(request: Request) {
         description,
       ].join("\n"),
     });
+
+    const timeoutPromise = new Promise<any>((_, reject) =>
+      setTimeout(() => reject(new Error("Timeout")), 6000)
+    );
+
+    const { error } = await Promise.race([sendPromise, timeoutPromise]);
 
     if (error) {
       const resendError = error as ResendError;
@@ -71,11 +77,16 @@ export async function POST(request: Request) {
     }
 
     return Response.json({ message: "Inquiry sent." });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Contact form email failed:", error);
+    const isTimeout = error?.message === "Timeout";
     return Response.json(
-      { message: "Unable to send inquiry right now." },
-      { status: 500 }
+      {
+        message: isTimeout
+          ? "The email service timed out. Please try again or check your connection."
+          : "Unable to send inquiry right now.",
+      },
+      { status: isTimeout ? 504 : 500 }
     );
   }
 }

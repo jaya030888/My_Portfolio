@@ -33,7 +33,7 @@ export default function About() {
 
   return (
     <section data-video-pin className="flex items-center justify-center bg-[#f0f0f0] px-5 py-6 sm:min-h-screen sm:-translate-y-20 sm:px-10 sm:py-16 lg:px-16">
-      <div className="mx-auto w-full max-w-[800px]">
+      <div className="mx-auto w-full md:w-[800px] max-w-full">
         <button
           type="button"
           data-main-video

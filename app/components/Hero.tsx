@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 export default function Hero() {
   return (
 
-    <div className="w-full max-w-[1000px]">
+    <div className="w-full md:w-[1000px] max-w-full">
 
     
     <section id="top" className="flex min-h-screen w-full flex-col justify-center bg-[#f0f0f0] px-5 pb-12 pt-28 text-black sm:px-10 md:block md:pl-28 md:pt-28 lg:pl-50">

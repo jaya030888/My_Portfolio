@@ -44,7 +44,7 @@ export default function Work() {
 
   return (
     <section id="work" className="flex min-h-screen bg-[#f0f0f0] px-5 py-16 sm:px-10 lg:px-16">
-      <div className="mx-auto w-full max-w-[1120px]">
+      <div className="mx-auto w-full md:w-[740px] lg:w-[1120px] max-w-full">
         <div data-reveal className="mb-7 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <h2 className="max-w-[640px] text-[36px] font-medium leading-[0.98] text-[#A8A8A8] sm:text-[54px]">
             Selected Projects
