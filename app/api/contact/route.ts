@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const recipient = "jayamyname19@gmail.com";
+const recipient = "ria7j6@gmail.com";
 
 type ContactForm = {
   Name?: string;
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     const resend = new Resend(apiKey);
 
     const sendPromise = resend.emails.send({
-      from: "Portfolio Inquiry <onboarding@resend.dev>",
+      from: "Riyaviz <contact@riyaviz.me>",
       to: recipient,
       replyTo: email,
       subject: `New project inquiry from ${name}`,
