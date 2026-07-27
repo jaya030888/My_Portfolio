@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const recipient = "jayamyname19@gmail.com";
+const recipient = "ria7j6@gmail.com";
 
 type ContactForm = {
   Name?: string;
