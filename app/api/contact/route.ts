@@ -9,6 +9,11 @@ type ContactForm = {
   Description?: string;
 };
 
+type ResendError = {
+  message?: string;
+  statusCode?: number;
+};
+
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ContactForm;
@@ -36,7 +41,7 @@ export async function POST(request: Request) {
 
     const resend = new Resend(apiKey);
 
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "Portfolio Inquiry <onboarding@resend.dev>",
       to: recipient,
       replyTo: email,
@@ -50,6 +55,20 @@ export async function POST(request: Request) {
         description,
       ].join("\n"),
     });
+
+    if (error) {
+      const resendError = error as ResendError;
+      console.error("Contact form email was rejected:", resendError);
+
+      return Response.json(
+        {
+          message:
+            resendError.message ??
+            "The email service could not send your inquiry. Please try again.",
+        },
+        { status: resendError.statusCode ?? 502 }
+      );
+    }
 
     return Response.json({ message: "Inquiry sent." });
   } catch (error) {

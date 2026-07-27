@@ -11,6 +11,7 @@ const [form, setForm] = useState({
   Description: "",
 });
 const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+const [errorMessage, setErrorMessage] = useState("");
 
 const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
   setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,27 +20,35 @@ const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTML
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setStatus("sending");
+  setErrorMessage("");
 
-  const response = await fetch("/api/contact", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(form),
-  });
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      const result = (await response.json().catch(() => null)) as { message?: string } | null;
+      setErrorMessage(result?.message ?? "Something went wrong. Please try again.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("sent");
+    setForm({
+      Name: "",
+      Email: "",
+      Budget: "",
+      Description: "",
+    });
+  } catch {
+    setErrorMessage("Unable to reach the email service. Please try again.");
     setStatus("error");
-    return;
   }
-
-  setStatus("sent");
-  setForm({
-    Name: "",
-    Email: "",
-    Budget: "",
-    Description: "",
-  });
 };
 
 
@@ -96,9 +105,9 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             </p>
           )}
 
-          {status === "error" && (
-            <p className="text-center text-[15px] font-medium text-[#9f3b3b]">
-              Something went wrong. Please try again.
+          {status === "error" && errorMessage && (
+            <p role="alert" className="text-center text-[15px] font-medium text-[#9f3b3b]">
+              {errorMessage}
             </p>
           )}
  
