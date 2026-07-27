@@ -23,7 +23,7 @@ export default function About() {
                 autoPlay
                 className="max-h-[86vh] w-full object-contain"
               >
-                <source src="/videos/first.mp4" type="video/mp4" />
+                <source src="/videos/video1.mp4" type="video/mp4" />
               </video>
             </div>
           </div>,
@@ -32,7 +32,7 @@ export default function About() {
       : null;
 
   return (
-    <section data-video-pin className="flex items-center justify-center bg-[#f0f0f0] px-5 py-6 sm:min-h-screen sm:px-10 sm:py-16 lg:px-16">
+    <section data-video-pin className="flex items-center justify-center bg-[#f0f0f0] px-5 py-6 sm:min-h-screen sm:-translate-y-20 sm:px-10 sm:py-16 lg:px-16">
       <div className="mx-auto w-full max-w-[800px]">
         <button
           type="button"
